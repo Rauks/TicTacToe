@@ -3,6 +3,7 @@
     Created on : 11 déc. 2013, 14:19:47
     Author     : Karl
 --%>
+<jsp:useBean id="gameBean" scope="session" class="net.kirauks.tictactoe.GameBean" />
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
