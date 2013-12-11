@@ -76,13 +76,11 @@ public class GameBean {
     public void playPlayerTurn(int line, int col){
         this.play(GamePlayer.USER, line, col);
     }
-    
     public void playComputerTurn(){
         int line = this.getRandomLineIndexWithEmptyCell();
         int col = this.getRandomEmptyCell(line);
         this.play(GamePlayer.COMPUTER, line, col);
     }
-    
     private void play(GamePlayer player, int line, int col){
         if(this.gameStatus[line][col] == GameState.NULL){
             this.gameStatus[line][col] = player.state;
@@ -152,6 +150,9 @@ public class GameBean {
     
     private static final Random rand = new Random();
     private int getRandomLineIndexWithEmptyCell(){
+        if(!this.hasEmptyCell()){
+            return -1;
+        }
         List<Integer> indexes = new ArrayList();
         int index = 0;
         for(GameState[] line : this.gameStatus){
@@ -170,6 +171,9 @@ public class GameBean {
         return indexes.get(rand.nextInt(indexes.size()));
     }
     private int getRandomEmptyCell(int line){
+        if(!this.hasEmptyCell()){
+            return -1;
+        }
         List<Integer> indexes = new ArrayList();
         int index = 0;
         for(GameState cell : this.gameStatus[line]){
@@ -179,5 +183,15 @@ public class GameBean {
             index++;
         }
         return indexes.get(rand.nextInt(indexes.size()));
+    }
+    public boolean hasEmptyCell(){
+        for(int line = 0; line < GRID_SIZE; line++){
+            for(int col = 0; col < GRID_SIZE; col++){
+                if(this.gameStatus[line][col] == GameState.NULL){
+                    return true;
+                }
+            }       
+        }
+        return false;
     }
 }
