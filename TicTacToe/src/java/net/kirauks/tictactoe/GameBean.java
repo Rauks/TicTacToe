@@ -6,6 +6,10 @@
 
 package net.kirauks.tictactoe;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  *
  * @author Karl
@@ -13,7 +17,7 @@ package net.kirauks.tictactoe;
 public class GameBean {
     private static final int GRID_SIZE = 3;
     
-    private enum GameState{
+    public enum GameState{
         NULL, O, X;
     }
     public enum GamePlayer{
@@ -29,9 +33,25 @@ public class GameBean {
     private boolean userFirst = true;
     private GameState[][] gameStatus;
     
-    
     public GameBean(){
         this.gameStatus = new GameState[GRID_SIZE][GRID_SIZE];
+    }
+    
+    public class Line{
+        private GameState[] lineDatas;
+        private Line(GameState[] lineDatas){
+            this.lineDatas = lineDatas;
+        }
+    }
+    public List<Line> getGridLines(){
+        List<Line> lines = new ArrayList<>();
+        for(GameState[] lineDatas : this.gameStatus){
+            lines.add(new Line(lineDatas));
+        }
+        return lines;
+    }
+    public List<GameState> getGridStatus(Line line){
+        return Arrays.asList(line.lineDatas);
     }
     
     public void setStartByUser(boolean userFirst){
